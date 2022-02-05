@@ -4,8 +4,8 @@ import { FirebaseAdapter } from "@next-auth/firebase-adapter";
 import { firebaseConfig } from "../../../firebase";
 
 import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 // import "firebase/compat/auth";
-// import "firebase/compat/firestore";
 // import firebase from "firebase/app";
 // import "firebase/firestore";
 
