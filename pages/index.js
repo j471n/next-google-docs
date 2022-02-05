@@ -20,7 +20,7 @@ export default function Home() {
             <h2 className="text-gray-700 text-lg">Start a new document</h2>
 
             <Button
-              color="gray"
+              color="darkgray"
               buttonType="outline"
               rounded={true}
               iconOnly={true}
