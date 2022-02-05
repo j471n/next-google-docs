@@ -1,8 +1,6 @@
 import Image from "next/image";
-// import /Icon from "@material-tailwind/react/Icon";
 import Button from "@material-tailwind/react/Button";
 import { signIn } from "next-auth/client";
-// import { SignIn } from "next-auth/client";
 import Icon from "@material-tailwind/react/Icon";
 
 function Login() {
@@ -20,7 +18,7 @@ function Login() {
         color="blue"
         buttonType="filled"
         ripple="light"
-        onClick={signIn}
+        onClick={() => signIn("google")}
       >
         <Icon name="lock" size="xl" />
         Sign in with Google
