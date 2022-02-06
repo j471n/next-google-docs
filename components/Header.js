@@ -3,8 +3,10 @@ import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
 import Image from "next/image";
 import { signOut } from "next-auth/client";
+import { useSession } from "next-auth/client";
 
 const Header = () => {
+  const [session] = useSession();
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 justify-between max-w-screen bg-white ">
       <div className="flex items-center space-x-1">
@@ -44,19 +46,24 @@ const Header = () => {
           <Icon name="apps" size="3xl" color="gray" />
         </Button>
 
-        <div
-          className="relative cursor-pointer h-10 w-10 rounded-full group ring-4 ring-transparent lg:hover:ring-blue-400 active:ring-blue-400"
-          onClick={signOut}
-        >
-          <Image
-            className="rounded-full "
-            layout="fill"
-            src="https://rb.gy/en5awm"
-          />
-
-          <p className="hidden lg:group-hover:inline-flex absolute -bottom-12 bg-white px-2 py-1 -right-2">
-            Logout
+        <div className="flex items-center space-x-2">
+          <p className="hidden lg:inline-flex font-medium">
+            {session?.user?.name}
           </p>
+          <div
+            className="relative cursor-pointer h-10 w-10 rounded-full group ring-4 ring-transparent lg:hover:ring-blue-400 active:ring-blue-400"
+            onClick={signOut}
+          >
+            <Image
+              className="rounded-full "
+              layout="fill"
+              alt={session?.user?.name}
+              src={session?.user?.image}
+            />
+            <p className="top-[10%] transition-all opacity-0 duration-200 lg:group-hover:opacity-100 lg:group-hover:-translate-x-14 absolute bg-gray-300 rounded-sm  px-2 py-1 -right-2">
+              Logout
+            </p>
+          </div>
         </div>
       </div>
     </header>

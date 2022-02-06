@@ -1,15 +1,94 @@
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Header from "../components/Header";
 import Icon from "@material-tailwind/react/Icon";
 import Button from "@material-tailwind/react/Button";
-import { useSession } from "next-auth/client";
+import { getSession, getProviders } from "next-auth/client";
 import Login from "../components/Login";
+import Modal from "@material-tailwind/react/Modal";
+import ModalBody from "@material-tailwind/react/ModalBody";
+import ModalFooter from "@material-tailwind/react/ModalFooter";
+import Input from "@material-tailwind/react/Input";
+import ModalHeader from "@material-tailwind/react/ModalHeader";
+import { db } from "../firebase";
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
+import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import DocumentRow from "../components/DocumentRow";
 
-export default function Home() {
-  const [session] = useSession();
+export default function Home({ session, providers }) {
+  if (!session) return <Login providers={providers} />;
 
-  if (!session) return <Login />;
+  const [showModal, setShowModal] = useState(false);
+  const [input, setInput] = useState("");
+  const [snapshot] = useCollectionOnce(
+    db
+      .collection("userDocs")
+      .doc(session?.user?.email)
+      .collection("docs")
+      .orderBy("timestamp", "desc")
+  );
+
+  // console.log(snapshot.data().fileName);
+
+  function createDocument() {
+    // if not input then return
+    if (!input) return;
+
+    db.collection("userDocs")
+      .doc(session.user.email)
+      .collection("docs")
+      .add({
+        fileName: input,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => {
+        setInput("");
+        setShowModal(false);
+      });
+  }
+  const modal = (
+    <Modal size="sm" active={showModal} toggler={() => setShowModal(false)}>
+      <ModalHeader className="" toggler={() => setShowModal(false)}>
+        <p className="text-base">Create a document</p>
+      </ModalHeader>
+      <ModalBody>
+        <Input
+          type="text"
+          color="lightBlue"
+          size="md"
+          placeholder="Document Name"
+          outline={true}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && createDocument()}
+        />
+      </ModalBody>
+
+      <ModalFooter>
+        <Button
+          color="blue"
+          buttonType="link"
+          ripple="dark"
+          rounded={true}
+          onClick={(e) => setShowModal(false)}
+        >
+          Cancel
+        </Button>
+
+        <Button
+          color="blue"
+          // buttonType="link"
+          ripple="light"
+          rounded={true}
+          onClick={createDocument}
+        >
+          Create
+        </Button>
+      </ModalFooter>
+    </Modal>
+  );
 
   return (
     <div className="w-screen">
@@ -19,6 +98,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
+
+      {modal}
 
       <section className="bg-[#F1F3F4] pb-10 px-5  w-full">
         <div className="max-w-3xl md:mx-auto">
@@ -38,7 +119,10 @@ export default function Home() {
           </div>
 
           <div>
-            <div className="relative h-52 w-40 border-2 cursor-pointer hover:border-blue-400">
+            <div
+              onClick={() => setShowModal(true)}
+              className="relative h-52 w-40 border-2 cursor-pointer hover:border-blue-400"
+            >
               <Image src="https://rb.gy/wlvbum" layout="fill" />
             </div>
             <p className="mt-2 ml-2 text-gray-700 text-sm font-bold sm:font-semibold">
@@ -50,15 +134,37 @@ export default function Home() {
 
       {/* Bottom Container */}
 
-      <section className="bg-white px-10 md:px-0">
-        <div className="max-w-3xl mx-auto py-8 text-sm text-gray-700">
-          <div className="flex items-center justify-between pb-5">
+      <section className="bg-white px-10 md:px-0 max-w-3xl mx-auto">
+        <div className="pt-8 text-sm text-gray-700">
+          <div className="flex items-center justify-between ">
             <h2 className="font-medium flex-grow">My Document</h2>
             <p className="mr-12">Date Created</p>
             <Icon name="folder" size="2xl" color="gray" />
           </div>
         </div>
+
+        {snapshot?.docs.map((doc) => {
+          return <DocumentRow
+            key={doc.id}
+            id={doc.id}
+            fileName={doc.data().fileName}
+            date={doc.data().timestamp}
+          />;
+        })}
       </section>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  // Get the user session and the providers
+  const session = await getSession(context);
+  const providers = await getProviders();
+
+  return {
+    props: {
+      session,
+      providers,
+    },
+  };
 }
