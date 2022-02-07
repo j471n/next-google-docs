@@ -13,12 +13,9 @@ import {
 } from "next-auth/client";
 import Login from "../../components/Login";
 
-export default function Doc({ providers }) {
+export default function Doc({ id, providers }) {
   const [session] = useSession();
-  if (!session) return <Login providers={providers} />;
-
   const router = useRouter();
-  const { id } = router.query;
 
   const [snapshot, loadingSnapshot] = useDocumentOnce(
     db
@@ -28,6 +25,7 @@ export default function Doc({ providers }) {
       .doc(id)
   );
 
+  if (!session) return <Login providers={providers} />;
   // checking if the user try to access the url then send him to the home screen
   if (!loadingSnapshot && !snapshot?.data()?.fileName) {
     router.replace("/");
@@ -36,8 +34,23 @@ export default function Doc({ providers }) {
   return (
     <div>
       <header className="flex justify-between items-center p-3 pb-1">
-        <span onClick={() => router.push("/")} className="cursor-pointer">
+        <span
+          onClick={() => router.push("/")}
+          className="cursor-pointer relative group"
+        >
           <Icon name="description" size="5xl" color="blue" />
+
+          <Button
+            color="gray"
+            buttonType="filled"
+            iconOnly={true}
+            rounded={true}
+            size="lg"
+            className="hidden print:hidden absolute top-0 sm:inline-flex opacity-0 group-hover:opacity-100 z-50"
+            ripple="light"
+          >
+            <Icon name="arrow_back" size="xl" color="white" />
+          </Button>
         </span>
 
         <div className="flex-grow px-2">
@@ -68,7 +81,7 @@ export default function Doc({ providers }) {
             buttonType="filled"
             size="regular"
             iconOnly={true}
-            onClick={() => window?.print()}
+            onClick={()=> window?.print()}
             ripple="dark"
             className="border-0 bg-black hover:bg-gray-700 print:hidden"
           >
@@ -87,7 +100,7 @@ export default function Doc({ providers }) {
         </div>
       </header>
 
-      <TextEditor />
+      <TextEditor snapshot={snapshot} />
     </div>
   );
 }
@@ -95,9 +108,11 @@ export default function Doc({ providers }) {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
   const providers = await getProviders();
+  const { id } = context.query;
 
   return {
     props: {
+      id,
       session,
       providers,
     },

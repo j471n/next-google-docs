@@ -12,6 +12,7 @@ function Login({ providers }) {
         width="550"
         height="300"
         objectFit="contain"
+        alt=""
       />
 
       <Button

@@ -18,7 +18,6 @@ import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import DocumentRow from "../components/DocumentRow";
 
 export default function Home({ session, providers }) {
-  if (!session) return <Login providers={providers} />;
 
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
@@ -29,6 +28,9 @@ export default function Home({ session, providers }) {
       .collection("docs")
       .orderBy("timestamp", "desc")
   );
+
+  if (!session) return <Login providers={providers} />;
+
 
   // console.log(snapshot.data().fileName);
 
@@ -123,7 +125,7 @@ export default function Home({ session, providers }) {
               onClick={() => setShowModal(true)}
               className="relative h-52 w-40 border-2 cursor-pointer hover:border-blue-400"
             >
-              <Image src="https://rb.gy/wlvbum" layout="fill" />
+              <Image src="https://rb.gy/wlvbum" layout="fill" alt=""/>
             </div>
             <p className="mt-2 ml-2 text-gray-700 text-sm font-bold sm:font-semibold">
               Blank

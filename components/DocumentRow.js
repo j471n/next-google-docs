@@ -7,7 +7,7 @@ function DocumentRow({ id, fileName, date }) {
   return (
     <div
       className="flex items-center p-3 rounded-lg md:hover:bg-gray-100 w-full cursor-pointer text-sm md:text-base"
-      onClick={() => router.push(`/doc/${id}`)}
+      onClick={(e) => router.push(`/doc/${id}`)}
     >
       <Icon name="article" size="2xl" color="blue" />
       <p className="flex-grow pl-5 w-10 pr-10 truncate">{fileName}</p>

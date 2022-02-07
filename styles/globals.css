@@ -8,6 +8,6 @@
 
 @layer components {
   .option {
-    @apply cursor-pointer md:selection:hover:bg-gray-100 transition duration-200 ease-out font-medium sm:px-2 sm:py-1 rounded-md text-sm sm:text-base;
+    @apply hidden sm:flex cursor-pointer md:hover:bg-gray-100 transition duration-200 ease-out font-medium sm:px-2 sm:py-1 rounded-md text-sm sm:text-base;
   }
 }
