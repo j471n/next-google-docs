@@ -10,4 +10,19 @@
   .option {
     @apply hidden sm:flex cursor-pointer md:hover:bg-gray-100 transition duration-200 ease-out font-medium sm:px-2 sm:py-1 rounded-md text-sm sm:text-base;
   }
+
+  .col-1{
+    @apply flex-grow max-w-[50%] sm:max-w-[60%] text-left pl-4 text-black;
+  }
+
+  .col-2{
+    @apply flex-grow max-w-[30%] text-left;
+  }
+
+  .col-3{
+    @apply flex-grow max-w-[20%] sm:max-w-[10%] text-center;
+  }
+  .row {
+    @apply md:hover:bg-blue-100 rounded-full p-1 cursor-pointer text-xs sm:text-sm md:text-base odd:bg-gray-100 odd:sm:bg-white odd:rounded-none odd:sm:rounded-full;
+  }
 }
