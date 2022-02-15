@@ -16,9 +16,10 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import DocumentRow from "../components/DocumentRow";
+import { useRouter } from "next/router";
 
 export default function Home({ session, providers }) {
-
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
   const [snapshot] = useCollectionOnce(
@@ -31,9 +32,6 @@ export default function Home({ session, providers }) {
 
   if (!session) return <Login providers={providers} />;
 
-
-  // console.log(snapshot.data().fileName);
-
   function createDocument() {
     // if not input then return
     if (!input) return;
@@ -45,7 +43,8 @@ export default function Home({ session, providers }) {
         fileName: input,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
-      .then(() => {
+      .then((docRef) => {
+        router.push(`/doc/${docRef.id}`);
         setInput("");
         setShowModal(false);
       });
@@ -125,7 +124,7 @@ export default function Home({ session, providers }) {
               onClick={() => setShowModal(true)}
               className="relative h-52 w-40 border-2 cursor-pointer hover:border-blue-400"
             >
-              <Image src="https://rb.gy/wlvbum" layout="fill" alt=""/>
+              <Image src="https://rb.gy/wlvbum" layout="fill" alt="" />
             </div>
             <p className="mt-2 ml-2 text-gray-700 text-sm font-bold sm:font-semibold">
               Blank
@@ -136,24 +135,34 @@ export default function Home({ session, providers }) {
 
       {/* Bottom Container */}
 
-      <section className="bg-white px-10 md:px-0 max-w-3xl mx-auto">
-        <div className="pt-8 text-sm text-gray-700">
-          <div className="flex items-center justify-between ">
-            <h2 className="font-medium flex-grow">My Document</h2>
-            <p className="mr-12">Date Created</p>
-            <Icon name="folder" size="2xl" color="gray" />
-          </div>
-        </div>
+      <table className="bg-white pt-8 px-10 md:px-0 w-[100%] lg:w-[55%] mx-auto select-none">
+        <thead>
+          <tr className="flex items-center p-2 text-gray-700">
+            <th className="col-1 font-semibold text-sm sm:text-base">
+              My Documents
+            </th>
+            <th className="col-2 font-semibold text-sm sm:text-base">
+              Date Created
+            </th>
+            <th className="col-3">
+              <Icon name="folder" size="2xl" color="gray" />
+            </th>
+          </tr>
+        </thead>
 
-        {snapshot?.docs.map((doc) => {
-          return <DocumentRow
-            key={doc.id}
-            id={doc.id}
-            fileName={doc.data().fileName}
-            date={doc.data().timestamp}
-          />;
-        })}
-      </section>
+        <tbody>
+          {snapshot?.docs.map((doc) => {
+            return (
+              <DocumentRow
+                key={doc.id}
+                id={doc.id}
+                fileName={doc.data().fileName}
+                date={doc.data().timestamp}
+              />
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
