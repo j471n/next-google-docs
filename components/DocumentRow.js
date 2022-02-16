@@ -52,7 +52,7 @@ function DocumentRow({ id, fileName, date, deleteDocument }) {
   );
 
   return (
-    <tr className="flex items-center text-gray-600 row">
+    <tr className="flex items-center row">
       <td
         className="col-1 flex items-center space-x-2 font-medium capitalize"
         onClick={(e) => router.push(`/doc/${id}`)}
@@ -75,12 +75,12 @@ function DocumentRow({ id, fileName, date, deleteDocument }) {
           buttonType="outline"
           size="sm"
           rounded={true}
-          ripple="dark"
-          className="!mx-auto !rounded-full"
+          ripple="light"
+          className="mx-auto rounded-full !outline-none border-0"
         >
           <DropdownLink
             color="red"
-            ripple="light"
+            ripple="dark"
             className=""
             onClick={() => {
               setShowModal(true);
