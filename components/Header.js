@@ -46,10 +46,14 @@ const Header = ({ darkMode, changeDarkMode }) => {
           rounded={true}
           iconOnly={true}
           ripple="dark"
-          className="h-18 w-18 border-0 dark:bg-dark-light"
+          className="h-18 w-18 mr-1 border-0 dark:bg-dark-light"
           onClick={() => changeDarkMode(!darkMode)}
         >
-          <Icon name="apps" size="3xl" color="gray" />
+          <Icon
+            name={!darkMode ? "light_mode" : "dark_mode"}
+            size="3xl"
+            color="gray"
+          />
         </Button>
 
         <div className="flex items-center space-x-2">

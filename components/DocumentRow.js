@@ -81,12 +81,16 @@ function DocumentRow({ id, fileName, date, deleteDocument }) {
           <DropdownLink
             color="red"
             ripple="dark"
-            className=""
-            onClick={() => {
-              setShowModal(true);
-            }}
+            onClick={() => setShowModal(true)}
           >
             Delete
+          </DropdownLink>
+          <DropdownLink
+            color="blue"
+            ripple="dark"
+            onClick={() => window.open(`/doc/${id}`, "_blank")}
+          >
+            Open in new tab
           </DropdownLink>
         </Dropdown>
       </td>
