@@ -4,9 +4,12 @@ import Icon from "@material-tailwind/react/Icon";
 import Image from "next/image";
 import { signOut } from "next-auth/client";
 import { useSession } from "next-auth/client";
+import useDarkMode from "../hooks/useDarkMode";
 
-const Header = () => {
+const Header = ({ darkMode, changeDarkMode }) => {
   const [session] = useSession();
+
+  // const { darkMode, changeDarkMode } = useDarkMode();
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 justify-between max-w-screen bg-white dark:bg-dark-extra dark:text-gray-200">
       <div className="flex items-center space-x-1">
@@ -44,6 +47,7 @@ const Header = () => {
           iconOnly={true}
           ripple="dark"
           className="h-18 w-18 border-0 dark:bg-dark-light"
+          onClick={() => changeDarkMode(!darkMode)}
         >
           <Icon name="apps" size="3xl" color="gray" />
         </Button>
