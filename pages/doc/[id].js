@@ -39,39 +39,43 @@ export default function Doc({ id, providers }) {
       </Head>
       <div>
         <header className="flex justify-between items-center p-3 pb-1 print:hidden">
-          <span
-            onClick={() => router.push("/")}
-            className="cursor-pointer relative group"
-          >
-            <Icon name="description" size="5xl" color="blue" />
-
-            <Button
-              color="gray"
-              buttonType="filled"
-              iconOnly={true}
-              rounded={true}
-              size="lg"
-              className="hidden print:hidden absolute left-0 top-0 sm:inline-flex opacity-0 group-hover:opacity-100 z-50"
-              ripple="light"
+          <div className="flex items-center">
+            <div
+              onClick={() => router.push("/")}
+              className="cursor-pointer relative group"
             >
-              <Icon name="arrow_back" size="xl" color="white" />
-            </Button>
-          </span>
-          {/* file_download */}
-          <div className="flex-grow px-2">
-            <h2 className="text-lg font-semibold capitalize">
-              {snapshot?.data()?.fileName}
-            </h2>
+              <div className="">
+                <Icon name="description" size="5xl" color="blue" />
+              </div>
 
-            <div className="flex items-center text-sm space-x-2 text-gray-600 print:hidden">
-              <p className="option">File</p>
-              <p className="option">Edit</p>
-              <p className="option">View</p>
-              <p className="option">Insert</p>
-              <p className="option">Format</p>
-              <p className="option">Tools</p>
+              <Button
+                color="gray"
+                buttonType="filled"
+                iconOnly={true}
+                rounded={true}
+                size="lg"
+                className="hidden !absolute left-0 top-0  sm:inline-flex opacity-0 group-hover:opacity-100 z-50"
+                ripple="dark"
+              >
+                <Icon name="arrow_back" size="xl" color="white" />
+              </Button>
+            </div>
+            <div className="px-2">
+              <h2 className="text-lg font-semibold capitalize">
+                {snapshot?.data()?.fileName}
+              </h2>
+
+              <div className="flex items-center text-sm space-x-2 text-gray-600 print:hidden">
+                <p className="option">File</p>
+                <p className="option">Edit</p>
+                <p className="option">View</p>
+                <p className="option">Insert</p>
+                <p className="option">Format</p>
+                <p className="option">Tools</p>
+              </div>
             </div>
           </div>
+
           <div className="flex items-center space-x-2">
             <Button
               color="blue"
