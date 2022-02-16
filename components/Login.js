@@ -3,7 +3,8 @@ import Button from "@material-tailwind/react/Button";
 import { signIn } from "next-auth/client";
 import Icon from "@material-tailwind/react/Icon";
 
-function Login() {
+function Login({ providers }) {
+  const { google } = providers;
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Image
@@ -11,6 +12,7 @@ function Login() {
         width="550"
         height="300"
         objectFit="contain"
+        alt=""
       />
 
       <Button
@@ -18,7 +20,7 @@ function Login() {
         color="blue"
         buttonType="filled"
         ripple="light"
-        onClick={() => signIn("google")}
+        onClick={() => signIn(google.id)}
       >
         <Icon name="lock" size="xl" />
         Sign in with Google
