@@ -3,6 +3,7 @@ import "@material-tailwind/react/tailwind.css";
 import "tailwindcss/tailwind.css";
 import Head from "next/head";
 import { Provider } from "next-auth/client";
+import NProgress from "next-nprogress-emotion";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }) {
         ></meta>
       </Head>
       <Component {...pageProps} />
+      <NProgress color="#4186F5" />
     </Provider>
   );
 }
