@@ -14,7 +14,10 @@ import ModalHeader from "@material-tailwind/react/ModalHeader";
 import { db } from "../firebase";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import {
+  // useCollectionOnce,
+  useCollection,
+} from "react-firebase-hooks/firestore";
 import DocumentRow from "../components/DocumentRow";
 import { useRouter } from "next/router";
 
@@ -22,7 +25,9 @@ export default function Home({ session, providers }) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
-  const [snapshot] = useCollectionOnce(
+
+  // using useCollection for the realtime deleting and inserting record
+  const [snapshot] = useCollection(
     db
       .collection("userDocs")
       .doc(session?.user?.email)
@@ -37,7 +42,7 @@ export default function Home({ session, providers }) {
     if (!input) return;
 
     db.collection("userDocs")
-      .doc(session.user.email)
+      .doc(session?.user.email)
       .collection("docs")
       .add({
         fileName: input,
@@ -48,6 +53,15 @@ export default function Home({ session, providers }) {
         setInput("");
         setShowModal(false);
       });
+  }
+
+  function deleteDocument(id) {
+    db.collection("userDocs")
+      .doc(session?.user.email)
+      .collection("docs")
+      .doc(id)
+      .delete()
+      .catch((err) => console.error(err));
   }
   const modal = (
     <Modal size="sm" active={showModal} toggler={() => setShowModal(false)}>
@@ -158,6 +172,7 @@ export default function Home({ session, providers }) {
                 id={doc.id}
                 fileName={doc.data().fileName}
                 date={doc.data().timestamp}
+                deleteDocument={deleteDocument}
               />
             );
           })}
