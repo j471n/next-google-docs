@@ -4,12 +4,10 @@ import Icon from "@material-tailwind/react/Icon";
 import Image from "next/image";
 import { signOut } from "next-auth/client";
 import { useSession } from "next-auth/client";
-import useDarkMode from "../hooks/useDarkMode";
 
-const Header = ({ darkMode, changeDarkMode }) => {
+const Header = ({ darkMode, changeDarkMode, setShowSearchModal }) => {
   const [session] = useSession();
 
-  // const { darkMode, changeDarkMode } = useDarkMode();
   return (
     <header className="sticky top-0 z-50 flex items-center px-4 justify-between max-w-screen bg-white dark:bg-dark-extra dark:text-gray-200">
       <div className="flex items-center space-x-1">
@@ -30,14 +28,13 @@ const Header = ({ darkMode, changeDarkMode }) => {
         </h1>
       </div>
 
-      <div className="relative flex items-c enter px-3 sm:px-5 py-2  bg-[#F1F3F4] text-gray-600 rounded-md focus-within:shadow-default focus-within:bg-white dark:focus-within:bg-dark-light dark:focus-within:shadow-default dark:focus-within:shadow-gray-700 w-[200px] max-w-3xl md:flex-grow m-2 overflow-hidden dark:bg-dark-mid dark:text-gray-200">
+      <Button
+        className="px-5 sm:px-14 py-2 bg-[#F1F3F4] text-gray-600 rounded-md m-2 !shadow-none  dark:bg-dark-mid dark:text-gray-200"
+        onClick={() => setShowSearchModal(true)}
+      >
         <Icon name="search" size="2xl" color="darkgray" />
-        <input
-          className="outline-none flex-shrink bg-transparent ml-3 text-base w-full dark:placeholder:text-gray-400"
-          type="text"
-          placeholder="Search"
-        />
-      </div>
+
+      </Button>
 
       <div className="flex items-center space-x-1">
         <Button
