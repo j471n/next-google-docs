@@ -38,7 +38,7 @@ export default function Doc({ id, providers }) {
         <title>{`${snapshot?.data()?.fileName} - Docs`}</title>
       </Head>
       <div>
-        <header className="flex justify-between items-center p-3 pb-1">
+        <header className="flex justify-between items-center p-3 pb-1 print:hidden">
           <span
             onClick={() => router.push("/")}
             className="cursor-pointer relative group"
@@ -76,7 +76,7 @@ export default function Doc({ id, providers }) {
             <Button
               color="blue"
               buttonType="filled"
-              className="hidden md:inline-flex print:hidden"
+              className="hidden md:inline-flex"
               ripple="light"
             >
               <Icon name="people" size="md" /> Share
@@ -87,21 +87,10 @@ export default function Doc({ id, providers }) {
               iconOnly={true}
               onClick={() => window?.print()}
               ripple="dark"
-              className="border-0 bg-black hover:bg-gray-700 print:hidden"
+              className="border-0 bg-black hover:bg-gray-700"
             >
               <Icon name="print" size="2xl" />
             </Button>
-
-            {/* <Button
-              buttonType="filled"
-              size="regular"
-              iconOnly={true}
-              onClick={generatePDF}
-              ripple="dark"
-              className="border-0 bg-black hover:bg-gray-700 print:hidden"
-            >
-              <Icon name="file_download" size="2xl" />
-            </Button> */}
 
             <div className="relative print:hidden h-10 w-10 rounded-full cursor-pointer">
               <Image
