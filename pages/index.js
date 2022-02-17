@@ -84,8 +84,6 @@ export default function Home({ session, providers }) {
     );
   }
 
-  console.log(searchResult);
-
   const modal = (
     <Modal size="sm" active={showModal} toggler={() => setShowModal(false)}>
       <ModalHeader className="" toggler={() => setShowModal(false)}>
