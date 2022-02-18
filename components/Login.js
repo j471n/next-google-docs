@@ -6,20 +6,19 @@ import Icon from "@material-tailwind/react/Icon";
 function Login({ providers }) {
   const { google } = providers;
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen py-2 dark:bg-dark-mid">
       <Image
         src="https://rb.gy/rreijn"
         width="550"
         height="300"
         objectFit="contain"
-        alt=""
+        alt="docs"
       />
 
       <Button
-        className="mt-10 capitalize"
-        color="blue"
+        className="mt-10 capitalize bg-blue-500"
         buttonType="filled"
-        ripple="light"
+        ripple="dark"
         onClick={() => signIn(google.id)}
       >
         <Icon name="lock" size="xl" />

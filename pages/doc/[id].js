@@ -38,7 +38,7 @@ export default function Doc({ id, providers }) {
         <title>{`${snapshot?.data()?.fileName} - Docs`}</title>
       </Head>
       <div>
-        <header className="flex justify-between items-center p-3 pb-1 print:hidden">
+        <header className="flex justify-between items-center p-3 pb-1 print:hidden dark:bg-dark-extra dark:text-gray-200">
           <div className="flex items-center">
             <div
               onClick={() => router.push("/")}
@@ -65,7 +65,7 @@ export default function Doc({ id, providers }) {
                 {snapshot?.data()?.fileName}
               </h2>
 
-              <div className="flex items-center text-sm space-x-2 text-gray-600 print:hidden">
+              <div className="flex items-center text-sm space-x-2 text-gray-600 dark:text-gray-400 print:hidden">
                 <p className="option">File</p>
                 <p className="option">Edit</p>
                 <p className="option">View</p>
@@ -91,7 +91,7 @@ export default function Doc({ id, providers }) {
               iconOnly={true}
               onClick={() => window?.print()}
               ripple="dark"
-              className="border-0 bg-black hover:bg-gray-700"
+              className="border-0 bg-black dark:bg-zinc-600 hover:bg-gray-700 dark:hover:bg-zinc-700"
             >
               <Icon name="print" size="2xl" />
             </Button>
