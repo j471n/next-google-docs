@@ -30,32 +30,56 @@ We need to update `tailwind.config.js` to do that look at [Tailwind CSS Guide](h
 `.env.local` has three values which you need to pass to run this project. 
 
 - **`NEXTAUTH_URL`**:  In the development mode, it should be https://localhost:3000 and in production, you need to change it to your website homepage URL.
+
+	
 - **`GOOGLE_CLIENT_ID`** & **`GOOGLE_CLIENT_SECRET`**: go to [Google Cloud Console](https://console.cloud.google.com/) and login with you gmail. Then Create a new Project and fill all the necessary information and click on **Create** button.
+
 ![newproject](https://i.imgur.com/s98aDln.png)
+
 After creating a project there will be a search bar in that search for **APIs & Services** or just [click here](https://console.cloud.google.com/apis/dashboard). After visiting the page you need to make sure that you have selected you project or swithc the project if needed.
+
 ![selectproject](https://i.imgur.com/7HctR6n.png)
+
 After selecting you desided project the visit the **Credentials** section on the left sidebar
+
 ![credentials](https://i.imgur.com/hTeIqRp.png)
+
 After that there will be an new option to **Create Credentials** click on it.
+
 ![create Credential](https://i.imgur.com/9OZheKd.png)
+
 There will be a new menu then click on **OAuth client ID**
+
 ![oauth](https://i.imgur.com/reUPgFy.png)
+
 It will show you a warning to **Configure Consent Screen** click on it.
+
 ![consent screen](https://i.imgur.com/1HxVd2A.png)
+
 After that select the user type as **External** and click on **Create** button.
+
 ![option](https://i.imgur.com/8IZ1kAN.png)
+
 After that there will a form which needs to be filled. After filling that form save the data. And go to credential again and Create a new Credentials.
- As you progress further then there will be some field which you need to fill very carefully.
- It should be the **Domain** of your web app such as `https://example.com`
+As you progress further then there will be some field which you need to fill very carefully.
+It should be the **Domain** of your web app such as `https://example.com`
+
 ![js auth domain](https://i.imgur.com/FiQOzvT.png)
+
 After that you need to fill the redirect URI or callback URL which will show when you click on login button.
 For the producation it should be like `https://example.com/api/auth/callback/google`
+
 ![callbackuri](https://i.imgur.com/eMNN9Zt.png)
+
 After completing all the process you'll get your **Client ID** and **Client Secret** on the top-right corner which will look something like this-
+
 ![secret](https://i.imgur.com/kJgsZcS.png)
+
 And after that you are done just paste these in the project and restart your server. 
  
- ## What does it look like?
+</div>
+
+## What does it look like?
 
 ### LoginScreen
 
