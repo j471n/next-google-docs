@@ -1,6 +1,15 @@
 ![coverImage](https://imgur.com/PfAP6vQ.png)
 
-## How to start?
+## Technologies I've used 👨‍💻
+
+- [Next.js](https://nextjs.org/) 
+- [NextAuth.js](https://next-auth.js.org/) 
+- [Draft.js](https://draftjs.org/) 
+- [Firebase](https://firebase.google.com/)
+- [Material Tailwind](https://material-tailwind.com/) 
+- [Tailwind CSS](https://tailwindcss.com/) 
+
+## How to start? 🔰
 
 ### Create Next app
 
@@ -18,7 +27,7 @@ if you are using `yarn` then to start the server type `yarn dev` in the terminal
  
 For more info about Create Next app [Visit Here](https://nextjs.org/learn/basics/create-nextjs-app/setup)
 
-### Setup Tailwind CSS
+### Setup Tailwind CSS 
 
 ```bash
 $ npm install -D tailwindcss postcss autoprefixer
@@ -168,15 +177,14 @@ To logout from the website, click your profile icon on the top-right section.
 ![logout](https://i.imgur.com/mkhpPYv.png)
 
 
-## WARNING !!!
+## ⚠️WARNING⚠️
 > I want to inform you in advance that it is not very secure and the admin (which is me) can see the documents created by the other users for now. It's not end-to-end encrypted. I have made this just for fun and to learn something new. It is my responsibility to let you know about the downside of it. The below images show how It looks like from my perspective. 
 
 ![warning](https://imgur.com/fWwTSNy.png)
 
 
-## Quick Links
-- [View the code on Github 🐈‍⬛](https://bit.ly/3LMp3Tt)
+## Quick Links 🔗
 - [Visit the Production 🚀](https://bit.ly/3I1lOVN)
 
-### Support me😊👇
+### Support me ☕
 [![buymecoffee](https://imgur.com/2QWo3cm.png)](https://bit.ly/3HXbKNC)
